@@ -4,7 +4,7 @@ const PeoplePopulator = {
     colors: [ 'brown', 'black', 'red', 'yellow', 'green', 'grey' ],
 
     getColor: function () {
-        return this.colors[ Math.floor( Math.random() * colors.length ) ]
+        return this.colors[ Math.floor( Math.random() * this.colors.length ) ]
     },
 
     getWeight: function () {
@@ -51,7 +51,7 @@ const PeoplePopulator = {
     could you write it differently?
     =======================================================*/
     populate: function () {
-        Person.find( {} ).count( function ( err, count ) {
+        Person.find( {} ).countDocuments( ( err, count ) => {
             // the below two loops could be changed to a simple:
             // for ( let i = count; i < 100; i++ ) {}
             if ( count < 100 ) {

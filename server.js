@@ -1,4 +1,5 @@
 // Our Setup - Feel free to ignore all of this and skip to the questions at the end
+require( 'dotenv' ).config()
 const express = require( 'express' )
 const app = express()
 const bodyParser = require( 'body-parser' )
@@ -6,7 +7,7 @@ const mongoose = require( 'mongoose' )
 const BooksPopulator = require( './populators/books' )
 const PeoplePopulator = require( './populators/people' )
 
-mongoose.connect( 'mongodb://localhost/mongoose-practice' )
+mongoose.connect( 'mongodb://localhost/mongoose-practice', { useNewUrlParser: true } )
 
 app.use( bodyParser.urlencoded( { extended: false } ) )
 app.use( bodyParser.json() )
