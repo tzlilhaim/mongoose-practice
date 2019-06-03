@@ -1,144 +1,27 @@
-/*=====================================================
-Our Setup - 
-Feel free to ignore all of this and skip to the questions at the end
-=======================================================*/
-const bodyParser = require( 'body-parser' )
+// Our Setup - Feel free to ignore all of this and skip to the questions at the end
 const express = require( 'express' )
 const app = express()
-
-const request = require( 'request' )
+const bodyParser = require( 'body-parser' )
 const mongoose = require( 'mongoose' )
-const Book = require( './models/BookModel' )
-const Person = require( './models/PersonModel' )
+const BooksPopulator = require( './populators/books' )
+const PeoplePopulator = require( './populators/people' )
 
 mongoose.connect( 'mongodb://localhost/mongoose-practice' )
 
 app.use( bodyParser.urlencoded( { extended: false } ) )
 app.use( bodyParser.json() )
 
-
-/*=====================================================
-Create books Collection
-=======================================================*/
-const isbns = [ 9780156012195, 9780743273565, 9780435905484, 9780140275360, 9780756404741, 9780756407919, 9780140177398, 9780316769488, 9780062225672, 9780143130154, 9780307455925, 9781501143519 ]
-const url = 'https://www.googleapis.com/books/v1/volumes?q=isbn:'
-
-for ( let i = 0; i < isbns.length; i++ ) {
-    const apiURL = url + isbns[ i ]
-    /*=====================================================
-    the first time you run your code, uncomment the function below.
-    for subsequent runs, re-comment it so that it runs only once!
-    that said, there is a fail-safe to avoid duplicates below  
-    =======================================================*/
-    loadFromAPI( apiURL )
-}
-console.log( 'done' )
-
-function loadFromAPI( apiURL ) {
-
-    request( apiURL, function ( error, response, body ) {
-
-        const result = JSON.parse( body )
-
-        if ( result.totalItems && !error && response.statusCode === 200 ) {
-            const resBook = JSON.parse( body ).items[ 0 ].volumeInfo
-
-            const book = new Book( {
-                title: resBook.title,
-                author: resBook.authors[ 0 ],
-                pages: resBook.pageCount,
-                genres: resBook.categories || [ 'Other' ],
-                rating: resBook.averageRating || 5
-            } )
-
-            //Only save if the book doesn't exist yet
-            Book.findOne( { title: book.title }, function ( err, foundBook ) {
-                if ( !foundBook ) {
-                    book.save()
-                }
-            } )
-        }
-    } )
-}
-
-
-/*=====================================================
-Create People Collection
-=======================================================*/
-const colors = [ 'brown', 'black', 'red', 'yellow', 'green', 'grey' ]
-
-const getColor = function () {
-    return colors[ Math.floor( Math.random() * colors.length ) ]
-}
-
-const getWeight = function () {
-    return getRandIntBetween( 50, 120 )
-}
-
-const getHeight = function () {
-    return getRandIntBetween( 120, 230 )
-}
-
-const getSalary = function () {
-    return getRandIntBetween( 20000, 50000 )
-}
-
-const getNumKids = function () {
-    return Math.floor( Math.random() * 3 )
-}
-
-const getRandIntBetween = function ( min, max ) {
-    return Math.floor( Math.random() * ( max - min + 1 ) + min )
-}
-
-const getKids = function ( numKids ) {
-    const kids = []
-
-    for ( let i = 0; i < numKids; i++ ) {
-        kids.push( {
-            hair: getColor(),
-            eyes: getColor(),
-            weight: getWeight(),
-            height: getHeight(),
-        } )
-    }
-
-    return kids
-}
-
-/*=====================================================
-the below code always makes sure
-you don't have over 100 people and 
-adds new people and their kids until you do have 100
-
-try to understand how this code works
-could you write it differently?
-=======================================================*/
-Person.find( {} ).count( function ( err, count ) {
-    // the below two loops could be changed to a simple:
-    // for ( let i = count; i < 100; i++ ) {}
-    if ( count < 100 ) {
-        for ( let i = 0; i < 100 - count; i++ ) {
-            const numKids = getNumKids()
-
-            const p = new Person( {
-                hair: getColor(),
-                eyes: getColor(),
-                weight: getWeight(),
-                height: getHeight(),
-                salary: getSalary(),
-                numKids: numKids,
-                kids: getKids( numKids )
-            } )
-
-            p.save()
-        }
-    }
-} )
+/*
+ * CREATE BOOKS & PEOPLE COLLECTIONS
+ * the first time you run your code, uncomment the function below.
+ * for subsequent runs, re-comment it so that it runs only once!
+ * that said, there is a fail-safe to avoid duplicates below
+*/
+BooksPopulator.populate()
+PeoplePopulator.populate()
 
 // Start the server
-app.listen( 3000, () => console.log( 'Server up and running on port 3000' ) )
-
+app.listen( process.env.SERVER_PORT, () => console.log( `Server up and running on port ${ process.env.SERVER_PORT }` ) )
 
 /*=====================================================
 Exercises - now that your databases are full 
