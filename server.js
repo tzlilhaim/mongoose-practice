@@ -44,12 +44,12 @@ and your server is running do the following:
 
 /*People
 ----------------------*/
-//1. Find all the people who are tall (>180) AND rich (>30000)
+//4. Find all the people who are tall (>180) AND rich (>30000)
 
-//2. Find all the people who are tall (>180) OR rich (>30000)
+//5. Find all the people who are tall (>180) OR rich (>30000)
 
-//3. Find all the people who have grey hair or eyes, and are skinny (<70)
+//6. Find all the people who have grey hair or eyes, and are skinny (<70)
 
-//4. Find people who have at least 1 kid with grey hair
+//7. Find people who have at least 1 kid with grey hair
 
-//5. Find all the people who have at least one overweight kid, and are overweight themselves (>100)
+//8. Find all the people who have at least one overweight kid, and are overweight themselves (>100)

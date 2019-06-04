@@ -1,6 +1,6 @@
 import { Mongoose, Schema } from 'mongoose'
 import * as mongoose from 'mongoose'
-import child, { ChildProcess } from 'child_process'
+import * as child_process from 'child_process'
 
 class MongoDbTester {
 	public readonly client: Mongoose
@@ -29,7 +29,7 @@ class MongoDbTester {
 	}
 
 	public static fetchAndExecuteQuery( path: string, callback: any ): void {
-		child.exec( 'node ' + __dirname + '/../solutions/spot-checks/' + path, callback )
+		child_process.exec( 'node ' + __dirname + '/../solutions/spot-checks/' + path, callback )
 	}
 
 	public async dropDatabase(): Promise<any> {

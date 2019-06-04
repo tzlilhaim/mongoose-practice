@@ -1,5 +1,5 @@
-require( 'dotenv' ).config()
 import * as requestPromise from 'request-promise'
+require( 'dotenv' ).config()
 
 const HOST = process.env.SERVER_HOST
 const PORT = process.env.SERVER_PORT

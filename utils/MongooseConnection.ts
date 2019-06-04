@@ -1,4 +1,5 @@
-import mongoose, { Mongoose } from 'mongoose'
+import { Mongoose } from 'mongoose'
+import * as mongoose from 'mongoose'
 
 export default class MongoConnection {
 	private static _instance: Mongoose
