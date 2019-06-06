@@ -36,32 +36,32 @@ const personSchema = new Schema( {
 const Person = mongoose.model( 'PersonModel', personSchema )
 module.exports = Person
 
-// Find books with fewer than 500 but more than 200 pages
+// 3. Find books with fewer than 500 but more than 200 pages
 Book.find( ( { pages: { '$lt': 500, '$gt': 200 } } ), function ( err, books ) {
-
+    console.log( books )
 } )
 
-// Find books whose rating is less than 5, and sort by the author's name
+// 4. Find books whose rating is less than 5, and sort by the author's name
 Book.find( { rating: { '$lt': 5 } } ).sort( { author: -1 } ).exec( function ( err, books ) {
-
+    console.log( books )
 } )
 
-// Find all the Fiction books, skip the first 2, and display only 3 of them
+// 5. Find all the Fiction books, skip the first 2, and display only 3 of them
 Book.find( { genres: 'Fiction' } ).skip( 2 ).limit( 3 ).exec( function ( err, books ) {
-
+    console.log( books )
 } )
 
-// Find all the people who are tall (>180) AND rich (>30000)
+// 6. Find all the people who are tall (>180) AND rich (>30000)
 Person.find( ( { height: { '$gt': 180 }, salary: { '$gt': 30000 } } ), function ( err, people ) {
-
+    console.log( people )
 } )
 
-// Find all the people who are tall OR rich
+// 7. Find all the people who are tall OR rich
 Person.find( { $or: [ { height: { '$gt': 180 } }, { salary: { '$gt': 30000 } } ] }, function ( err, people ) {
-
+    console.log( people )
 } )
 
-// Find all the people who have grey hair or eyes, and are skinny (<70)
+// 8. Find all the people who have grey hair or eyes, and are skinny (<70)
 Person.find().and( [
     { $or: [ { hair: 'grey' }, { eyes: 'grey' } ] },
     { weight: { '$lt': 70 } }
@@ -69,24 +69,15 @@ Person.find().and( [
     console.log( people )
 } )
 
-// Find people who have at least 1 kid with grey hair
+// 9. Find people who have at least 1 kid with grey hair
 Person.find( { kids: { $elemMatch: { hair: 'grey' } } } ).exec( function ( err, people ) {
-
-    //this is just to show you that this works
-    for ( let p in people ) {
-        let person = people[ p ]
-        console.log( 'Person', p, 'has kids:\n', person.kids )
-    }
+    console.log( people )
 } )
 
-// Find all the people who have at least one overweight kid, and are overweight themselves (>100)
+// 10. Find all the people who have at least one overweight kid, and are overweight themselves (>100)
 Person.find().and( [
     { weight: { '$gt': 100 } },
     { kids: { $elemMatch: { weight: { '$gt': 100 } } } }
 ] ).exec( function ( err, people ) {
-    //this is just to show you that this works
-    for ( let p in people ) {
-        let person = people[ p ]
-        console.log( '\nPerson', p, 'has weight', person.weight, ' and kids:\n', person.kids )
-    }
+    console.log( people )
 } )

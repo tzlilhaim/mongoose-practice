@@ -34,13 +34,13 @@ and your server is running do the following:
 //DON'T GET BLOCKED
 
 // Books
-//1. Find books with fewer than 500 but more than 200 pages
-//2. Find books whose rating is less than 5, and sort by the author's name
-//3. Find all the Fiction books, skip the first 2, and display only 3 of them
+//3. Find books with fewer than 500 but more than 200 pages
+//4. Find books whose rating is less than 5, and sort by the author's name
+//5. Find all the Fiction books, skip the first 2, and display only 3 of them
 
 // People
-//4. Find all the people who are tall (>180) AND rich (>30000)
-//5. Find all the people who are tall (>180) OR rich (>30000)
-//6. Find all the people who have grey hair or eyes, and are skinny (<70)
-//7. Find people who have at least 1 kid with grey hair
-//8. Find all the people who have at least one overweight kid, and are overweight themselves (>100)
+//6. Find all the people who are tall (>180) AND rich (>30000)
+//7. Find all the people who are tall (>180) OR rich (>30000)
+//8. Find all the people who have grey hair or eyes, and are skinny (<70)
+//9. Find people who have at least 1 kid with grey hair
+//10. Find all the people who have at least one overweight kid, and are overweight themselves (>100)

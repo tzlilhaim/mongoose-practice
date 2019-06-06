@@ -24,8 +24,10 @@ class MongoDbTester {
 		this.collectionName = collectionName
 	}
 
-	public setModelName( modelName: string ) {
+	public setModelName( modelName: string ): MongoDbTester {
 		this.modelName = modelName
+
+		return this
 	}
 
 	public static fetchAndExecuteQuery( path: string, callback: any ): void {
@@ -62,8 +64,12 @@ class MongoDbTester {
 		} )
 	}
 
-	public getModelSchema(): Schema {
+	public fetchModelSchemaKeys(): Schema {
 		return this.model.schema
+	}
+
+	public fetchModelSchema(): Schema {
+		return this.model.schema.obj
 	}
 
 	public close(): void {
