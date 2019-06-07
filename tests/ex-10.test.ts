@@ -4,9 +4,9 @@ import myConsole from '../utils/console'
 
 const BookModel = require( './../models/BookModel' )
 const mongooseClient = require( './../mongoose' )
-const exFunction = require( '../solutions/ex-4.solution' )
+const exFunction = require( '../solutions/ex-10.solution' )
 
-describe( 'ex-4', () => {
+describe( 'ex-10', () => {
 	let mongoose: Mongoose = mongooseClient
 	let tester: MongoDbTester
 
